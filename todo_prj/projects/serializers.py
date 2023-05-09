@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from .models import Project, Todo
-from users.serializers import UserModelSerializer
 
 
 class ProjectModelSerializer(serializers.ModelSerializer):
@@ -13,7 +12,7 @@ class ProjectModelSerializer(serializers.ModelSerializer):
 
 
 class TodoModelSerializer(serializers.ModelSerializer):
-    project = ProjectModelSerializer()
+    project = serializers.StringRelatedField()
     author = serializers.StringRelatedField()
 
     class Meta:

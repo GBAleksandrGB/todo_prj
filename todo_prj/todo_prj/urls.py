@@ -19,7 +19,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from projects import views
-from users.views import UserModelViewSet
+from users.views import UserModelViewSet, UserKwargsFilterView
 
 router = DefaultRouter()
 router.register('users', UserModelViewSet, basename='users')
@@ -30,5 +30,6 @@ router.register('todos', views.TodoModelViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('filters/<str:username>/', UserKwargsFilterView.as_view()),
     path('', include(router.urls)),
 ]
