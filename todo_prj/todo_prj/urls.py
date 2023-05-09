@@ -19,10 +19,10 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from projects import views
-from users.views import UserModelViewSet, UserKwargsFilterView
+from users.views import UserMixinViewSet, UserKwargsFilterView
 
 router = DefaultRouter()
-router.register('users', UserModelViewSet, basename='users')
+router.register('users', UserMixinViewSet)
 router.register('projects', views.ProjectModelViewSet)
 router.register('todos', views.TodoModelViewSet)
 
