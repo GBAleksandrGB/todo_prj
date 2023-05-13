@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import permissions
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
@@ -34,6 +34,7 @@ class TodoModelViewSet(ModelViewSet):
     serializer_class = TodoModelSerializer
     pagination_class = TodoPagination
     filterset_class = TodoFilter
+    permission_classes = [permissions.IsAuthenticated]
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
