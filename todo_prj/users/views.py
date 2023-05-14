@@ -4,7 +4,7 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 
 from .models import ToDoUser
-from .serializers import UserModelSerializer
+from .serializers import UserModelSerializer, UserModelSerializerV2
 
 
 class UserPagination(LimitOffsetPagination):
@@ -21,5 +21,9 @@ class UserKwargsFilterView(ListAPIView):
 
 class UserMixinViewSet(UpdateModelMixin, ListModelMixin, RetrieveModelMixin, GenericViewSet):
     queryset = ToDoUser.objects.all()
-    serializer_class = UserModelSerializer
     pagination_class = UserPagination
+
+    def get_serializer_class(self):
+        if self.request.version == '2.0':
+            return UserModelSerializerV2
+        return UserModelSerializer

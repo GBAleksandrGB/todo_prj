@@ -8,6 +8,8 @@ const ToDoUserItem = ({ user }) => {
         <td>{ user.first_name }</td>
         <td>{ user.last_name }</td>
         <td>{ user.email }</td>
+        <td>{ user.is_staff ? 'yes' : 'no' }</td>
+        <td>{ user.is_superuser ? 'yes' : 'no' }</td>
       </tr>
     </tbody>
   )
@@ -18,10 +20,12 @@ const ToDoUserLst = ({ users }) => {
     <table>
       <thead>
         <tr>
-          <th>Username</th>
-          <th>Firstname</th>
-          <th>Lastname</th>
-          <th>Email</th>
+          <th>USERNAME</th>
+          <th>FIRSTNAME</th>
+          <th>LASTNAME</th>
+          <th>EMAIL</th>
+          <th>STAFF</th>
+          <th>SUPERUSER</th>
         </tr>
      </thead>
      { users.map((user) => <ToDoUserItem user={ user } key={ user.username }/>) }

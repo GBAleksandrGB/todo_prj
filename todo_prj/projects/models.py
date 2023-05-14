@@ -1,5 +1,3 @@
-import datetime
-
 from django.db import models
 from django.utils import timezone
 
@@ -18,8 +16,8 @@ class Project(models.Model):
 class Todo(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=0)
     content = models.TextField(max_length=500)
-    created_at = models.DateTimeField(default=timezone.now)
-    updated_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(default=timezone.now().isoformat('|', 'seconds'))
+    updated_at = models.DateTimeField(default=timezone.now().isoformat('|', 'seconds'))
     author = models.OneToOneField(ToDoUser, on_delete=models.PROTECT)
     is_active = models.BooleanField(default=True)
 
