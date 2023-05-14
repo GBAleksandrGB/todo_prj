@@ -7,7 +7,7 @@ from users.models import ToDoUser
 
 
 class Project(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     repo = models.URLField(max_length=200)
     users = models.ManyToManyField(ToDoUser)
 

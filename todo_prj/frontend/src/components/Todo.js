@@ -22,7 +22,7 @@ const TodoLst = ({ todos }) => {
       <th>UPDATED_AT</th>
       <th>AUTHOR</th>
       <th>IS_ACTIVE</th>
-      { todos.map((todo) => <TodoItem todo={ todo } />) }
+      { todos.map((todo) => <TodoItem todo={ todo } key={ todo.id }/>) }
     </table>
   )
 }

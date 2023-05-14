@@ -19,7 +19,7 @@ const ProjectFilter = ({ projects }) => {
       <th>NAME</th>
       <th>REPOSITORY</th>
       <th>USERS</th>
-      { filtered_projects.map((project) => <ProjectItem project={ project } />) }
+      { filtered_projects.map((project) => <ProjectItem project={ project } key={ project.id } />) }
     </table>
   )
 }
