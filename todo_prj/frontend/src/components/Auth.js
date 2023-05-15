@@ -18,20 +18,25 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={(event) => this.handleSubmit(event)}>
-        <input type="text"
-               name="login"
-               placeholder="login"
-               value={this.state.login}
-                      onChange={(event) => this.handleChange(event)} />
-        <input type="password"
-               name="password"
-               placeholder="password"
-               value={this.state.password}
-                      onChange={(event)=>this.handleChange(event)} />
-        <input type="submit"
-               value="Login" />
-      </form>
+      <div class="d-flex justify-content-center">
+        <form onSubmit={(event) => this.handleSubmit(event)}>
+          <input type="text"
+                 name="login"
+                 placeholder="login"
+                 class="form-control my-2"
+                 value={this.state.login}
+                        onChange={(event) => this.handleChange(event)} />
+          <input type="password"
+                 name="password"
+                 placeholder="password"
+                 class="form-control my-2"
+                 value={this.state.password}
+                        onChange={(event)=>this.handleChange(event)} />
+          <input type="submit"
+                 class="btn btn-outline-secondary my-2"
+                 value="Login" />
+        </form>
+      </div>
     );
   }
 }

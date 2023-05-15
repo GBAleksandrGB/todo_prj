@@ -15,12 +15,12 @@ const ProjectItem = ({ project }) => {
 
 const ProjectLst = ({ projects }) => {
   return (
-    <table>
+    <table class='table table-hover shadow-sm'>
       <thead>
         <tr>
-          <th>NAME</th>
-          <th>REPOSITORY</th>
-          <th>USERS</th>
+          <th scope="col">NAME</th>
+          <th scope="col">REPOSITORY</th>
+          <th scope="col">USERS</th>
         </tr>
       </thead>
       { projects.map((project) => <ProjectItem project={ project } key={ project.id } />) }

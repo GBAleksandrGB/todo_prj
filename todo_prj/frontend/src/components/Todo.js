@@ -17,15 +17,15 @@ const TodoItem = ({ todo }) => {
 
 const TodoLst = ({ todos }) => {
   return (
-    <table>
+    <table class='table table-light table-hover shadow-sm'>
       <thead>
         <tr>
-          <th>PROJECT</th>
-          <th>CONTENT</th>
-          <th>CREATED_AT</th>
-          <th>UPDATED_AT</th>
-          <th>AUTHOR</th>
-          <th>IS_ACTIVE</th>
+          <th scope="col">PROJECT</th>
+          <th scope="col">CONTENT</th>
+          <th scope="col">CREATED_AT</th>
+          <th scope="col">UPDATED_AT</th>
+          <th scope="col">AUTHOR</th>
+          <th scope="col">IS_ACTIVE</th>
         </tr>
       </thead>
       { todos.map((todo) => <TodoItem todo={ todo } key={ todo.id }/>) }

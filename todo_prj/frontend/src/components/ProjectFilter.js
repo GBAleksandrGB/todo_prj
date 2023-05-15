@@ -3,11 +3,13 @@ import {useParams} from 'react-router-dom'
 
 const ProjectItem = ({ project }) => {
   return (
-    <tr>
-      <td>{ project.name }</td>
-      <td>{ project.repo }</td>
-      <td>{ project.users }</td>
-    </tr>
+    <tbody>
+      <tr>
+        <td>{ project.name }</td>
+        <td>{ project.repo }</td>
+        <td>{ project.users }</td>
+      </tr>
+    </tbody>
   )
 }
 
@@ -15,10 +17,14 @@ const ProjectFilter = ({ projects }) => {
   let { name } = useParams();
   let filtered_projects = projects.filter((project) => project.name === name)
   return (
-    <table>
-      <th>NAME</th>
-      <th>REPOSITORY</th>
-      <th>USERS</th>
+    <table class='table table-hover shadow-sm'>
+      <thead>
+        <tr>
+          <th scope="col">NAME</th>
+          <th scope="col">REPOSITORY</th>
+          <th scope="col">USERS</th>
+        </tr>
+      </thead>
       { filtered_projects.map((project) => <ProjectItem project={ project } key={ project.id } />) }
     </table>
   )

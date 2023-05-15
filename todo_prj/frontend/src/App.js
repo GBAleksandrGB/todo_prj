@@ -99,23 +99,23 @@ class App extends React.Component {
 
   render () {
     return (
-      <div className="App">
+      <div className="App" class="container">
         <BrowserRouter>
-          <nav>
-            <ul>
+          <nav class="my-4">
+            <ul class="nav justify-content-center">
               <li>
-                <Link to='/users'>Users</Link>
+                <Link to='/users' class="nav-link">Users</Link>
               </li>
               <li>
-                <Link to='/projects'>Projects</Link>
+                <Link to='/projects' class="nav-link">Projects</Link>
               </li>
               <li>
-                <Link to='/todos'>Todos</Link>
+                <Link to='/todos' class="nav-link">Todos</Link>
               </li>
               <li>
                 { this.is_authenticated()
-                  ? <button onClick={ () => this.logout() }>Logout</button>
-                  : <Link to='/login'>Login</Link> }
+                  ? <button type="button" class="btn btn-success" onClick={ () => this.logout() }>Logout</button>
+                  : <Link to='/login' type="button" class="btn btn-primary">Login</Link> }
               </li>
             </ul>
           </nav>

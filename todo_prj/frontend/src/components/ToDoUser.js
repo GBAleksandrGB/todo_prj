@@ -17,15 +17,15 @@ const ToDoUserItem = ({ user }) => {
 
 const ToDoUserLst = ({ users }) => {
   return (
-    <table>
+    <table class='table table-success table-striped table-hover shadow-sm'>
       <thead>
         <tr>
-          <th>USERNAME</th>
-          <th>FIRSTNAME</th>
-          <th>LASTNAME</th>
-          <th>EMAIL</th>
-          <th>STAFF</th>
-          <th>SUPERUSER</th>
+          <th scope="col">USERNAME</th>
+          <th scope="col">FIRSTNAME</th>
+          <th scope="col">LASTNAME</th>
+          <th scope="col">EMAIL</th>
+          <th scope="col">STAFF</th>
+          <th scope="col">SUPERUSER</th>
         </tr>
      </thead>
      { users.map((user) => <ToDoUserItem user={ user } key={ user.username }/>) }
