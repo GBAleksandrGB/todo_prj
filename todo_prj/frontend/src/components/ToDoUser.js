@@ -17,7 +17,7 @@ const ToDoUserItem = ({ user }) => {
 
 const ToDoUserLst = ({ users }) => {
   return (
-    <table class='table table-success table-striped table-hover shadow-sm'>
+    <table className='table table-success table-striped table-hover shadow-sm'>
       <thead>
         <tr>
           <th scope="col">USERNAME</th>

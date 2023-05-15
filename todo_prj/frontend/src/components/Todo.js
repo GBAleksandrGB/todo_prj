@@ -17,7 +17,7 @@ const TodoItem = ({ todo }) => {
 
 const TodoLst = ({ todos }) => {
   return (
-    <table class='table table-light table-hover shadow-sm'>
+    <table className='table table-light table-hover shadow-sm'>
       <thead>
         <tr>
           <th scope="col">PROJECT</th>

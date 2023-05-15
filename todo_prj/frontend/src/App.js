@@ -99,23 +99,23 @@ class App extends React.Component {
 
   render () {
     return (
-      <div className="App" class="container">
+      <div className="App container">
         <BrowserRouter>
-          <nav class="my-4">
-            <ul class="nav justify-content-center">
+          <nav className="my-4">
+            <ul className="nav justify-content-center">
               <li>
-                <Link to='/users' class="nav-link">Users</Link>
+                <Link to='/users' className="nav-link">Users</Link>
               </li>
               <li>
-                <Link to='/projects' class="nav-link">Projects</Link>
+                <Link to='/projects' className="nav-link">Projects</Link>
               </li>
               <li>
-                <Link to='/todos' class="nav-link">Todos</Link>
+                <Link to='/todos' className="nav-link">Todos</Link>
               </li>
               <li>
                 { this.is_authenticated()
-                  ? <button type="button" class="btn btn-success" onClick={ () => this.logout() }>Logout</button>
-                  : <Link to='/login' type="button" class="btn btn-primary">Login</Link> }
+                  ? <button type="button" className="btn btn-success" onClick={ () => this.logout() }>Logout</button>
+                  : <Link to='/login' type="button" className="btn btn-primary">Login</Link> }
               </li>
             </ul>
           </nav>
@@ -129,7 +129,7 @@ class App extends React.Component {
             <Route path="projects/:name"
                    element={<ProjectFilter projects={ this.state.projects } />} />
             <Route path='/login'
-                   element={<LoginForm get_token={(username, password) => this.get_token(username, password)}/>} />
+                   element={<LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
             <Route path="*"
                    element={<NotFound />} />
           </Routes>

@@ -17,7 +17,7 @@ const ProjectFilter = ({ projects }) => {
   let { name } = useParams();
   let filtered_projects = projects.filter((project) => project.name === name)
   return (
-    <table class='table table-hover shadow-sm'>
+    <table className='table table-hover shadow-sm'>
       <thead>
         <tr>
           <th scope="col">NAME</th>

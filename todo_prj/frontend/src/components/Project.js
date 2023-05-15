@@ -15,7 +15,7 @@ const ProjectItem = ({ project }) => {
 
 const ProjectLst = ({ projects }) => {
   return (
-    <table class='table table-hover shadow-sm'>
+    <table className='table table-hover shadow-sm'>
       <thead>
         <tr>
           <th scope="col">NAME</th>
