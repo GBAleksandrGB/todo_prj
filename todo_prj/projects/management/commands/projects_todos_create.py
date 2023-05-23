@@ -43,13 +43,21 @@ class Command(BaseCommand):
                                     author=user1)
         todo_serializer1 = TodoModelSerializer(todo1)
         print(todo_serializer1.data)
+
         todo2 = Todo.objects.create(project=project1,
                                     content='This is another content',
                                     author=user2)
         todo_serializer2 = TodoModelSerializer(todo2)
         print(todo_serializer2.data)
+
         todo3 = Todo.objects.create(project=project2,
                                     content='This is third content',
                                     author=user3)
         todo_serializer3 = TodoModelSerializer(todo3)
         print(todo_serializer3.data)
+
+        todo4 = Todo.objects.create(project=project2,
+                                    content='This is third content',
+                                    author=user1)
+        todo_serializer4 = TodoModelSerializer(todo4)
+        print(todo_serializer4.data)

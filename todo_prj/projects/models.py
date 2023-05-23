@@ -5,7 +5,7 @@ from users.models import ToDoUser
 
 
 class Project(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
     repo = models.URLField(max_length=200)
     users = models.ManyToManyField(ToDoUser)
 
@@ -14,11 +14,11 @@ class Project(models.Model):
 
 
 class Todo(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=0)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     content = models.TextField(max_length=500)
     created_at = models.DateTimeField(default=timezone.now().isoformat('|', 'seconds'))
     updated_at = models.DateTimeField(default=timezone.now().isoformat('|', 'seconds'))
-    author = models.OneToOneField(ToDoUser, on_delete=models.PROTECT)
+    author = models.ForeignKey(ToDoUser, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

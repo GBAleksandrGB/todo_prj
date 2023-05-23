@@ -1,5 +1,5 @@
 import React from 'react'
-import {useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 const ProjectItem = ({ project }) => {
   return (
@@ -7,7 +7,7 @@ const ProjectItem = ({ project }) => {
       <tr>
         <td>{ project.name }</td>
         <td>{ project.repo }</td>
-        <td>{ project.users }</td>
+        <td>{ project.users.join(', ') }</td>
       </tr>
     </tbody>
   )

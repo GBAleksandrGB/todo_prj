@@ -8,7 +8,7 @@ from .serializers import UserModelSerializer, UserModelSerializerV2
 
 
 class UserPagination(LimitOffsetPagination):
-    default_limit = 3
+    default_limit = 5
 
 
 class UserKwargsFilterView(ListAPIView):
@@ -22,6 +22,7 @@ class UserKwargsFilterView(ListAPIView):
 class UserMixinViewSet(UpdateModelMixin, ListModelMixin, RetrieveModelMixin, GenericViewSet):
     queryset = ToDoUser.objects.all()
     pagination_class = UserPagination
+    serializer_class = UserModelSerializer
 
     def get_serializer_class(self):
         if self.request.version == '2.0':

@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from users.models import ToDoUser
+from users.serializers import UserModelSerializer
 from .models import Project, Todo
 
 
@@ -12,8 +14,8 @@ class ProjectModelSerializer(serializers.ModelSerializer):
 
 
 class TodoModelSerializer(serializers.ModelSerializer):
-    project = serializers.StringRelatedField()
-    author = serializers.StringRelatedField()
+    author = serializers.SlugRelatedField(queryset=ToDoUser.objects.all(), slug_field='username')
+    project = serializers.SlugRelatedField(queryset=Project.objects.all(), slug_field='name')
 
     class Meta:
         model = Todo

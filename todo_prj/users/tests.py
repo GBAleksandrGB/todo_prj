@@ -1,8 +1,7 @@
 import requests
 from django.test import TestCase
-from requests.auth import HTTPBasicAuth
 from rest_framework import status
-from rest_framework.test import APIRequestFactory, force_authenticate, APISimpleTestCase, RequestsClient
+from rest_framework.test import APIRequestFactory, force_authenticate, APISimpleTestCase
 
 from .models import ToDoUser
 from .views import UserMixinViewSet

@@ -9,7 +9,8 @@ import ProjectFilter from './components/ProjectFilter.js';
 import NotFound from './components/NotFound.js';
 import LoginForm from './components/Auth.js';
 import Cookies from 'universal-cookie';
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+import TodoForm from './components/TodoForm.js';
+import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,12 +23,19 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.get_token_from_storage();
+  }
+
+  is_auth() {
+    return !!this.state.token;
+  }
+
   get_headers() {
-    let headers = { 'Accept': 'application/json; version=2.0' }
-    if (this.is_authenticated()) {
+    let headers = { 'Accept': 'application/json; version=2.0; content-type' }
+    if (this.is_auth()) {
       headers['Authorization'] = 'Token ' + this.state.token;
     };
-    console.log(headers);
     return headers
   }
 
@@ -37,7 +45,6 @@ class App extends React.Component {
     axios.get('http://127.0.0.1:8000/users', { headers })
       .then(response => {
         const users = response.data.results
-        console.log(users)
         this.setState({ 'users': users })
       }).catch(error => {
         console.log(error);
@@ -47,7 +54,6 @@ class App extends React.Component {
     axios.get('http://127.0.0.1:8000/projects', { headers })
       .then(response => {
         const projects = response.data.results
-        console.log(projects)
         this.setState({ 'projects': projects })
       }).catch(error => {
         console.log(error);
@@ -57,20 +63,29 @@ class App extends React.Component {
     axios.get('http://127.0.0.1:8000/todos', { headers })
       .then(response => {
         const todos = response.data.results
-        console.log(todos)
         this.setState({ 'todos': todos })
       }).catch(error => {
         console.log(error);
-        this.setState( { todos: [] } );
+        this.setState({ todos: [] });
       })
   }
 
-  componentDidMount() {
-    this.get_token_from_storage();
+  deleteTodo(id) {
+    const headers = this.get_headers();
+    axios.delete(`http://127.0.0.1:8000/todos/${ id }`, { headers })
+      .then(response => {
+        this.load_data();
+      }).catch(error => console.log(error))
   }
 
-  is_authenticated() {
-    return this.state.token != ''
+  createTodo(project, content, author) {
+    const headers = this.get_headers();
+
+    const data = { project: project, content: content, author: author };
+    axios.post('http://127.0.0.1:8000/todos/', data, { headers })
+      .then(response => {
+        this.load_data();
+      }).catch(error => console.log(error))
   }
 
   get_token(username, password) {
@@ -84,7 +99,7 @@ class App extends React.Component {
   get_token_from_storage() {
     const cookies = new Cookies();
     const token = cookies.get('token');
-    this.setState({'token': token }, () => this.load_data());
+    this.setState({ 'token': token }, () => this.load_data());
   }
 
   set_token(token) {
@@ -94,7 +109,7 @@ class App extends React.Component {
   }
 
   logout() {
-    this.set_token('');
+    this.set_token("");
   }
 
   render () {
@@ -113,25 +128,41 @@ class App extends React.Component {
                 <Link to='/todos' className="nav-link">Todos</Link>
               </li>
               <li>
-                { this.is_authenticated()
-                  ? <button type="button" className="btn btn-success" onClick={ () => this.logout() }>Logout</button>
-                  : <Link to='/login' type="button" className="btn btn-primary">Login</Link> }
+                { this.is_auth()
+                  ? <button type="button"
+                            className="btn btn-success"
+                            onClick={ () => this.logout() }>
+                      Logout
+                    </button>
+                  : <Link to="/login"
+                          type="button"
+                          className="btn btn-primary">
+                      Login
+                    </Link> }
               </li>
             </ul>
           </nav>
           <Routes>
+            <Route path='/'
+                   element={<Navigate to='/users'/ >} />
             <Route path="/users"
-                   element={<ToDoUserLst users={ this.state.users } />} />
+                   element={ <ToDoUserLst users={ this.state.users } />} />
             <Route path="/projects"
-                   element={<ProjectLst projects={ this.state.projects } />} />
+                   element={ <ProjectLst projects={ this.state.projects } />} />
             <Route path="/todos"
-                   element={<TodoLst todos={ this.state.todos } />} />
+                   element={ <TodoLst todos={ this.state.todos }
+                   deleteTodo={ (id) => this.deleteTodo(id) } />} />
+            <Route path='/todos/create'
+                   element={ <TodoForm users = { this.state.users } projects = { this.state.projects }
+                               createTodo={ (project, content, author) =>
+                                 this.createTodo(project, content, author) } />} />
             <Route path="projects/:name"
-                   element={<ProjectFilter projects={ this.state.projects } />} />
-            <Route path='/login'
-                   element={<LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
+                   element={ <ProjectFilter projects={ this.state.projects } />} />
+            <Route path="/login"
+                   element={ <LoginForm get_token={ (username, password) =>
+                     this.get_token(username, password) } />} />
             <Route path="*"
-                   element={<NotFound />} />
+                   element={ <NotFound />} />
           </Routes>
         </BrowserRouter>
       </div>
