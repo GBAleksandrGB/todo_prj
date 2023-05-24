@@ -14,7 +14,7 @@ const TodoItem = ({ todo, deleteTodo }) => {
         <td>
           <button onClick={ () => deleteTodo(todo.id) }
                   type='button'
-                  className="btn btn-danger">
+                  className="btn btn-danger me-2">
             Delete
           </button>
         </td>

@@ -1,0 +1,46 @@
+version: "3.1"
+services:
+  db:
+    env_file:
+      - .env
+    image: "postgres:${POSTGRES_VERSION}"
+    privileged: true
+    volumes:
+      - .:/docker-entrypoint-initdb.d
+      - .:/var/lib/postgresql/data
+    ports:
+      - 5433:5435
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PGDATA: ${PGDATA}
+
+  backend:
+    build:
+      context: ./todo_prj/
+    expose:
+      - 8090
+    command: bash -c "
+      python manage.py migrate
+      && python manage.py users_create
+      && python manage.py projects_todos_create
+      && gunicorn todo_prj.wsgi -b 0.0.0.0:8090
+      "
+    depends_on:
+      - db
+
+  nginx:
+    build: ./todo_prj/nginx/
+    ports:
+      - 8091:81
+    depends_on:
+      - backend
+
+  frontend:
+    build: ./todo_prj/frontend/
+    ports:
+      - 81:81
+    depends_on:
+      - nginx

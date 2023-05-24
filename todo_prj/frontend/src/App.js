@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import logo from './logo.svg';
 import './App.css';
 import ToDoUserLst from './components/ToDoUser.js';
 import ProjectLst from './components/Project.js';
