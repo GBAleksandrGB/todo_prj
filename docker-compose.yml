@@ -1,9 +1,11 @@
-version: "3.1"
+version: "3.8"
 services:
   db:
     env_file:
       - .env
     image: "postgres:${POSTGRES_VERSION}"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
     privileged: true
     ports:
       - 5432:5432
@@ -12,32 +14,34 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
-      PGDATA: ${PGDATA}
 
   backend:
-    build:
-      context: ./todo_prj/
+    build: ./todo_prj
     expose:
-      - 8000
+      - 8080
     command: bash -c "
-      python manage.py migrate
+      python manage.py makemigrations
+      && python manage.py migrate
       && python manage.py users_create
       && python manage.py projects_todos_create
-      && gunicorn todo_prj.wsgi -b 127.0.0.1:8000
+      && gunicorn todo_prj.wsgi -b 0.0.0.0:8080
       "
     depends_on:
       - db
 
   nginx:
-    build: ./todo_prj/nginx/
+    build: ./nginx
     ports:
       - 8000:80
     depends_on:
       - backend
 
   frontend:
-    build: ./todo_prj/frontend/
+    build: ./frontend
     ports:
       - 80:80
     depends_on:
       - nginx
+
+volumes:
+  postgres_data:

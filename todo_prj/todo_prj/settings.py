@@ -65,6 +65,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3000',
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -95,7 +97,7 @@ DATABASES = {
         'USER': 'todo_prj',
         'PASSWORD': 'todo_prj123',
         'HOST': 'db',
-        'PORT': '5432',
+        'PORT': '',
     }
 }
 
