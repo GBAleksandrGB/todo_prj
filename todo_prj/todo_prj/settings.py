@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-pjwdf5*@km9vwduk=22!6i8w#atl+no$_%0$595lccp(86qus@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -95,7 +95,7 @@ DATABASES = {
         'USER': 'todo_prj',
         'PASSWORD': 'todo_prj123',
         'HOST': 'db',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
 
