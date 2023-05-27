@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,10 +20,10 @@ AUTH_USER_MODEL = 'users.ToDoUser'
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-pjwdf5*@km9vwduk=22!6i8w#atl+no$_%0$595lccp(86qus@'
+SECRET_KEY = 'foo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -61,11 +60,30 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'todo_prj.urls'
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
+
+CORS_ALLOW_HEADERS = (
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+
+)
+
+CORS_ALLOW_CREDENTIALS: True
 
 TEMPLATES = [
     {
@@ -97,7 +115,7 @@ DATABASES = {
         'USER': 'todo_prj',
         'PASSWORD': 'todo_prj123',
         'HOST': 'db',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
@@ -134,6 +152,8 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATICFILES = (f'{Path(__file__).resolve().parent.parent.parent}/frontend/build/{STATIC_URL}',)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

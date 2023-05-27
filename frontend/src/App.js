@@ -31,7 +31,7 @@ class App extends React.Component {
   }
 
   get_headers() {
-    let headers = { 'Accept': 'application/json; version=2.0; content-type' }
+    let headers = { 'content-type': 'application/json; version=2.0' }
     if (this.is_auth()) {
       headers['Authorization'] = 'Token ' + this.state.token;
     };
@@ -79,9 +79,8 @@ class App extends React.Component {
 
   createTodo(project, content, author) {
     const headers = this.get_headers();
-
     const data = { project: project, content: content, author: author };
-    axios.post('http://127.0.0.1:8000/todos/', data, { headers })
+    axios.post('http://127.0.0.1:8000/todos', data, { headers })
       .then(response => {
         this.load_data();
       }).catch(error => console.log(error))
@@ -108,7 +107,7 @@ class App extends React.Component {
   }
 
   logout() {
-    this.set_token("");
+    this.set_token(null);
   }
 
   render () {
@@ -143,7 +142,7 @@ class App extends React.Component {
           </nav>
           <Routes>
             <Route path='/'
-                   element={<Navigate to='/users'/ >} />
+                   element={<Navigate to='/users' />} />
             <Route path="/users"
                    element={ <ToDoUserLst users={ this.state.users } />} />
             <Route path="/projects"
