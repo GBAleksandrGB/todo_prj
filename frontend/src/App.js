@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 
   is_auth() {
-    return !!this.state.token;
+    return this.state.token !== "";
   }
 
   get_headers() {
@@ -41,7 +41,7 @@ class App extends React.Component {
   load_data () {
     const headers = this.get_headers();
 
-    axios.get('http://127.0.0.1:8000/users', { headers })
+    axios.get('http://127.0.0.1:8000/users/', { headers })
       .then(response => {
         const users = response.data.results
         this.setState({ 'users': users })
@@ -50,7 +50,7 @@ class App extends React.Component {
         this.setState({ users: [] });
       })
 
-    axios.get('http://127.0.0.1:8000/projects', { headers })
+    axios.get('http://127.0.0.1:8000/projects/', { headers })
       .then(response => {
         const projects = response.data.results
         this.setState({ 'projects': projects })
@@ -59,7 +59,7 @@ class App extends React.Component {
         this.setState({ projects: [] });
       })
 
-    axios.get('http://127.0.0.1:8000/todos', { headers })
+    axios.get('http://127.0.0.1:8000/todos/', { headers })
       .then(response => {
         const todos = response.data.results
         this.setState({ 'todos': todos })
@@ -71,7 +71,7 @@ class App extends React.Component {
 
   deleteTodo(id) {
     const headers = this.get_headers();
-    axios.delete(`http://127.0.0.1:8000/todos/${ id }`, { headers })
+    axios.delete(`http://127.0.0.1:8000/todos/${ id }/`, { headers })
       .then(response => {
         this.load_data();
       }).catch(error => console.log(error))
@@ -80,7 +80,7 @@ class App extends React.Component {
   createTodo(project, content, author) {
     const headers = this.get_headers();
     const data = { project: project, content: content, author: author };
-    axios.post('http://127.0.0.1:8000/todos', data, { headers })
+    axios.post('http://127.0.0.1:8000/todos/', data, { headers })
       .then(response => {
         this.load_data();
       }).catch(error => console.log(error))
@@ -107,7 +107,7 @@ class App extends React.Component {
   }
 
   logout() {
-    this.set_token(null);
+    this.set_token("");
   }
 
   render () {
@@ -142,21 +142,21 @@ class App extends React.Component {
           </nav>
           <Routes>
             <Route path='/'
-                   element={<Navigate to='/users' />} />
-            <Route path="/users"
+                   element={<Navigate to='/users/' />} />
+            <Route path="/users/"
                    element={ <ToDoUserLst users={ this.state.users } />} />
-            <Route path="/projects"
+            <Route path="/projects/"
                    element={ <ProjectLst projects={ this.state.projects } />} />
-            <Route path="/todos"
+            <Route path="/todos/"
                    element={ <TodoLst todos={ this.state.todos }
                    deleteTodo={ (id) => this.deleteTodo(id) } />} />
-            <Route path='/todos/create'
+            <Route path='/todos/create/'
                    element={ <TodoForm users = { this.state.users } projects = { this.state.projects }
                                createTodo={ (project, content, author) =>
                                  this.createTodo(project, content, author) } />} />
-            <Route path="projects/:name"
+            <Route path="projects/:name/"
                    element={ <ProjectFilter projects={ this.state.projects } />} />
-            <Route path="/login"
+            <Route path="/login/"
                    element={ <LoginForm get_token={ (username, password) =>
                      this.get_token(username, password) } />} />
             <Route path="*"

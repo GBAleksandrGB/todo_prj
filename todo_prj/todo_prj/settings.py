@@ -62,6 +62,7 @@ ROOT_URLCONF = 'todo_prj.urls'
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
+    "http://127.0.0.1:80",
 ]
 
 CORS_ALLOW_METHODS = (
@@ -82,8 +83,6 @@ CORS_ALLOW_HEADERS = (
     "x-requested-with",
 
 )
-
-CORS_ALLOW_CREDENTIALS: True
 
 TEMPLATES = [
     {
@@ -108,8 +107,6 @@ WSGI_APPLICATION = 'todo_prj.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'db',
         'USER': 'todo_prj',
