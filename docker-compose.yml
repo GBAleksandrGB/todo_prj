@@ -5,18 +5,19 @@ services:
       - .env
     image: "postgres:${POSTGRES_VERSION}"
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - pg-data:/var/lib/postgresql/data/
     privileged: true
     ports:
       - 5432:5432
     restart: always
     environment:
+      PGDATA: /var/lib/postgresql/data/todo_prj/
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
 
   backend:
-    build: ./todo_prj
+    build: .
     expose:
       - 8080
     command: bash -c "
@@ -44,4 +45,4 @@ services:
       - nginx
 
 volumes:
-  postgres_data:
+  pg-data:
