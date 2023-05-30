@@ -31,7 +31,7 @@ class App extends React.Component {
   }
 
   get_headers() {
-    let headers = { 'content-type': 'application/json; version=2.0' }
+    let headers = { 'accept': 'application/json; version=2.0' }
     if (this.is_auth()) {
       headers['Authorization'] = 'Token ' + this.state.token;
     };
