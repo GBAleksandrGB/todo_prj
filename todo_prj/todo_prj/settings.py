@@ -107,12 +107,14 @@ WSGI_APPLICATION = 'todo_prj.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db',
-        'USER': 'todo_prj',
-        'PASSWORD': 'todo_prj123',
-        'HOST': 'db',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'db',
+    #     'USER': 'todo_prj',
+    #     'PASSWORD': 'todo_prj123',
+    #     'HOST': 'db',
+    #     'PORT': '5432',
     }
 }
 
@@ -150,7 +152,7 @@ USE_TZ = False
 
 STATIC_URL = 'static/'
 
-STATICFILES = (f'{Path(__file__).resolve().parent.parent.parent}/frontend/build/{STATIC_URL}',)
+# STATICFILES = (f'{Path(__file__).resolve().parent.parent.parent}/frontend/build/{STATIC_URL}',)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
